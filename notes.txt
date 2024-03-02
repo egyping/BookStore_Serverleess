@@ -1,0 +1,104 @@
+- create the project at github 
+- clone it 
+- copy and paste the project files 
+- install amplify 
+     npm i -g @aws-amplify/cli@4.24
+- Configure your local amplify 
+    > amplify configure
+    sign in to the account 
+    us-east-1 > you chose your own 
+    the user name it will open the browser to create user name 
+    click enter at the console it will prompt you for the username, access key and secret 
+    then profile name you can name it with the project title for example "bs_profile"
+- now initiate amplify project 
+    amplify init
+    prod - visual studio - java script - react - src - build .. all default except profile choose
+    the profile you created
+- Add authentication layer to Amplify 
+    amplify add auth
+    Default configuration 
+    Username
+    No, I am done.
+- Create S3 to store images for our books
+    amplify add storage
+    Content (Images, audio, video, etc.)
+    bookstore
+    bookstore66c3bfc90ef5409dbbb3ef565d7d6b38  > default
+    Auth and guest users 
+    create/update, read, delete
+    read
+    No
+- Lambda to process book orders
+    On placing the order after adding to the cart we will need to do two things 
+        Stripe payment process 
+        create the order and link the book to the order 
+    this will need two lambda function 
+    amplify add function
+        Lambda function (serverless function)
+        processPayment
+        processPayment
+        NodeJS
+        Hello World
+        No No No No
+    amplify add function
+        Lambda function (serverless function)
+        createOrder
+        createOrder
+        NodeJS
+        Hello World
+        No No No No
+** Now you can note that amplify folder has authentication, storage and backend has the functions
+-   We need to add API so our frontend can communicate with our backend so we will add graphql api 
+    so the frontend can communicate with AppSync 
+    amplify add api
+        GraphQL
+        bookstore
+        Amazon Cognito User Pool 
+            (Cognito will be used for our admins and API key for guest users it is multi auth App
+            so later we will setup the api key auth)
+        Yes, I want to make some additional changes. 
+        Yes
+        API key
+        Guest users auth to books
+        365
+        No No 
+        Do you want a guided schema creation? (Y/n) Yes
+        Single object with fields (e.g., “Todo” with ID, name, description)
+        Do you want to edit the schema now? (Y/n) Yes
+        **
+        here we will need to copy some from the video resource and paste it at the amplify 
+        folders
+        From VR Schema.gql To api\bookstore\schema.graphql
+        From VR createOrder and proecessPayment js to backend function both functions
+        js files 
+        **
+        after that click enter to save 
+- amplify push
+    This command will take the local wizard created resources and deployed to AWS
+    user pool 
+    s3 bucket
+    appsync api 
+    Dynamodb tables 
+    lambda functions
+    Current Environment: prod
+
+    | Category | Resource name     | Operation | Provider plugin   |
+    | -------- | ----------------- | --------- | ----------------- |
+    | Auth     | bookstorea1b8a7d1 | Create    | awscloudformation |
+    | Storage  | bookstore         | Create    | awscloudformation |
+    | Function | processPayment    | Create    | awscloudformation |
+    | Function | createOrder       | Create    | awscloudformation |
+    | Api      | mybookstore       | Create    | awscloudformation |
+     
+    Yes
+    Do you want to generate code for your newly created GraphQL API (Y/n) yes
+    Choose the code generation language target javascript
+    Do you want to generate/update all possible GraphQL operations - queries, mutations and subscriptions (Y/
+    n) yes
+    Enter maximum statement depth [increase from default if your schema is deeply nested] 4
+    ** first 
+
+
+
+
+
